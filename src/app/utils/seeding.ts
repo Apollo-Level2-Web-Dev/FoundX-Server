@@ -19,6 +19,7 @@ export const seed = async () => {
         role: USER_ROLE.ADMIN,
         email: config.admin_email,
         password: config.admin_password,
+        profilePhoto: config.admin_profile_photo,
         mobileNumber: config.admin_mobile_number,
         status: USER_STATUS.ACTIVE,
       });

@@ -3,6 +3,7 @@ import { Server } from 'http';
 import mongoose from 'mongoose';
 import app from './app';
 import config from './app/config';
+import { seed } from './app/utils/seeding';
 
 let server: Server;
 
@@ -27,7 +28,7 @@ async function bootstrap() {
   try {
     await mongoose.connect(config.db_url as string);
     console.log('🛢 Database connected successfully');
-
+    await seed();
     server = app.listen(config.port, () => {
       console.log(`🚀 Application is running on port ${config.port}`);
     });
@@ -38,7 +39,6 @@ async function bootstrap() {
 }
 
 bootstrap();
-
 
 process.on('SIGTERM', () => {
   console.log('SIGTERM received');
@@ -51,7 +51,6 @@ process.on('SIGTERM', () => {
     process.exit(0);
   }
 });
-
 
 process.on('SIGINT', () => {
   console.log('SIGINT received');
