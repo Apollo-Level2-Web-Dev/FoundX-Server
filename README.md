@@ -158,8 +158,9 @@ JWT_ACCESS_EXPIRES_IN=7d
 JWT_REFRESH_SECRET=refreshsecret
 JWT_REFRESH_EXPIRES_IN=1y
 ADMIN_EMAIL=admin@gmail.com
-ADMIN_PASSWORD=admin
+ADMIN_PASSWORD=123456
 ADMIN_MOBILE_NUMBER=1234567890
+ADMIN_PROFILE_PHOTO=https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png
 ```
 
 ## **5. Run the Project**
