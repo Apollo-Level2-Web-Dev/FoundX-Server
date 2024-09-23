@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background-color: #000;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .footer {
+            background-color: #f1f1f1;
+            color: #555555;
+            text-align: center;
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        .status-approved {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .status-rejected {
+            color: #F44336;
+            font-weight: bold;
+        }
+
+        .feedback {
+            border-left: 4px solid #4CAF50;
+            padding-left: 10px;
+            margin-top: 20px;
+            background-color: #e8f5e9;
+        }
+
+        .feedback p {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>FoundX</h1>
+        </div>
+        <div class="content">
+            <p>Dear {{recipient_name}},</p>
+
+            {{#if isApproved}}
+            <p class="status-approved">Your claim request has been approved!</p>
+            <p>Thank you for your patience. We are pleased to inform you that your claim request for the item
+                <strong>{{item_name}}</strong> has been approved.
+            </p>
+            {{else}}
+            <p class="status-rejected">Your claim request has been rejected.</p>
+            <p>We regret to inform you that your claim request for the item <strong>{{item_name}}</strong> has been
+                rejected.</p>
+            {{/if}}
+
+            <div class="feedback">
+                <p><strong>Feedback:</strong></p>
+                <p>{{feedback}}</p>
+            </div>
+
+            <p>If you have any questions or need further assistance, please feel free to contact us.</p>
+
+            <p>Best regards,</p>
+            <p>The FoundX Team</p>
+        </div>
+        <div class="footer">
+            <p>&copy; 2024 FoundX. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+
+</html>

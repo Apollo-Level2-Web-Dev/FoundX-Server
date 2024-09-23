@@ -1,0 +1,835 @@
+{
+	"info": {
+		"_postman_id": "627faa38-a7ac-4002-b257-bf868f378251",
+		"name": "FoundX",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29107140"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Tanmoy Parvez\",\n    \"email\": \"tanmoyparvez@gmail.com\",\n    \"password\" : \"123456\",\n    \"mobileNumber\": \"1234567890\",\n    \"profilePhoto\":\"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API}}/auth/register",
+							"host": [
+								"{{BASE_API}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const res= pm.response.json();\r",
+									"const token=res.data.accessToken;   \r",
+									"pm.collectionVariables.set('ACCESS_TOKEN', token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"tanmoyparvez@gmail.com\",\n    \"password\" : \"123456\"\n}\n\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API}}/auth/login",
+							"host": [
+								"{{BASE_API}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCESS_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"oldPassword\" : \"123456\",\n    \"newPassword\" : \"456789\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API}}/auth/change-password",
+							"host": [
+								"{{BASE_API}}"
+							],
+							"path": [
+								"auth",
+								"change-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_API}}/auth/refresh-token",
+							"host": [
+								"{{BASE_API}}"
+							],
+							"path": [
+								"auth",
+								"refresh-token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Item Category",
+			"item": [
+				{
+					"name": "Create Item Category",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCESS_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"Smart Phone\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API}}/item-categories",
+							"host": [
+								"{{BASE_API}}"
+							],
+							"path": [
+								"item-categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Item Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_API}}/item-categories",
+							"host": [
+								"{{BASE_API}}"
+							],
+							"path": [
+								"item-categories"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": "-postCount",
+									"disabled": true
+								},
+								{
+									"key": "searchTerm",
+									"value": "Watch",
+									"disabled": true
+								},
+								{
+									"key": "fields",
+									"value": "name, _id",
+									"disabled": true
+								},
+								{
+									"key": "isDeleted",
+									"value": "true",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Item Category by Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Mobile\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API}}/item-categories/66d3518b858be9525839aaa5",
+							"host": [
+								"{{BASE_API}}"
+							],
+							"path": [
+								"item-categories",
+								"66d3518b858be9525839aaa5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Item Category",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCESS_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_API}}/item-categories/66d3518b858be9525839aaa5",
+							"host": [
+								"{{BASE_API}}"
+							],
+							"path": [
+								"item-categories",
+								"66d3518b858be9525839aaa5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Item",
+			"item": [
+				{
+					"name": "Create Item",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCESS_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "data",
+									"value": "  {\n    \"title\": \"Wallet\",\n    \"description\": \"A black leather wallet with a few cards inside.\",\n    \"location\": \"Central Park\",\n    \"city\": \"Dhaka\",\n    \"dateFound\": \"2023-06-15T00:00:00.000Z\",\n    \"category\": \"667ee6ad6635bacba3b633f3\",\n    \"user\": \"6682899b5c4ebb0dadc7b3bf\",\n    \"questions\": [\"What brand is the wallet?\", \"What cards are inside?\"]\n  }",
+									"type": "text"
+								},
+								{
+									"key": "itemImages",
+									"type": "file",
+									"src": [
+										"/C:/Users/tanmoy/Downloads/wallet.png",
+										"/C:/Users/tanmoy/Downloads/wallet-2.png"
+									]
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_API}}/items",
+							"host": [
+								"{{BASE_API}}"
+							],
+							"path": [
+								"items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Items",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_API}}/items",
+							"host": [
+								"{{BASE_API}}"
+							],
+							"path": [
+								"items"
+							],
+							"query": [
+								{
+									"key": "user",
+									"value": "6673ed0a6488be7cc36fde82",
+									"disabled": true
+								},
+								{
+									"key": "searchTerm",
+									"value": "Us",
+									"disabled": true
+								},
+								{
+									"key": "title",
+									"value": "IPhone 13",
+									"disabled": true
+								},
+								{
+									"key": "fields",
+									"value": "title",
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": "-title",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "3",
+									"disabled": true
+								},
+								{
+									"key": "from",
+									"value": "2024-04-01",
+									"disabled": true
+								},
+								{
+									"key": "to",
+									"value": "2024-05-01",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get SIngle Item By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_API}}/items/66c5945212193afda6798e89",
+							"host": [
+								"{{BASE_API}}"
+							],
+							"path": [
+								"items",
+								"66c5945212193afda6798e89"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Item",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCESS_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Wallet\",\r\n    \"description\": \"A black leather wallet with a few cards inside.\",\r\n    \"location\": \"Central Park\",\r\n    \"city\": \"Dhaka\",\r\n    \"questions\": [\"What brand is the wallet?\", \"What cards are inside?\"]\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API}}/items/66d332a0dece533d0e7be33d",
+							"host": [
+								"{{BASE_API}}"
+							],
+							"path": [
+								"items",
+								"66d332a0dece533d0e7be33d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Item",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCESS_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_API}}/items/66d33491dece533d0e7be34d",
+							"host": [
+								"{{BASE_API}}"
+							],
+							"path": [
+								"items",
+								"66d33491dece533d0e7be34d"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Claim Request",
+			"item": [
+				{
+					"name": "Create Claim Request",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCESS_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"item\": \"66d332a0dece533d0e7be33d\",\n    \"description\": \"The wallet is a black leather bifold with a small scratch.\",\n    \"answers\" : [\n        \"Small scratch on the bottom right corner\",\n        \"A family photo tucked behind the ID window\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API}}/claim-request",
+							"host": [
+								"{{BASE_API}}"
+							],
+							"path": [
+								"claim-request"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "My Claim Request",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCESS_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"item\": \"66c37abed6fd3770133fa582\",\n    \"description\": \"test test\",\n    \"answers\" : [\n        \"Black\",\n        \"Dhaka\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API}}/claim-request/my-claim-request",
+							"host": [
+								"{{BASE_API}}"
+							],
+							"path": [
+								"claim-request",
+								"my-claim-request"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Claim Request by Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCESS_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"item\": \"66c37abed6fd3770133fa582\",\n    \"description\": \"test test\",\n    \"answers\" : [\n        \"Black\",\n        \"Dhaka\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API}}/claim-request/66d30298dece533d0e7be043",
+							"host": [
+								"{{BASE_API}}"
+							],
+							"path": [
+								"claim-request",
+								"66d30298dece533d0e7be043"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "View Received Claim Request",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCESS_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API}}/claim-request/received-claim-request",
+							"host": [
+								"{{BASE_API}}"
+							],
+							"path": [
+								"claim-request",
+								"received-claim-request"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Status with Feedback",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCESS_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"APPROVED\",\n    \"feedback\": \"APPROVED your claim request. call me as soon as possible.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API}}/claim-request/66d5b0dc8a758fd71554c387",
+							"host": [
+								"{{BASE_API}}"
+							],
+							"path": [
+								"claim-request",
+								"66d5b0dc8a758fd71554c387"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User (Private Route)",
+			"item": [
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"User 10\",\n    \"role\": \"USER\",\n    \"email\": \"user10@gmail.com\",\n    \"password\" : \"123456\",\n    \"mobileNumber\": \"1234567890\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API}}/users/create-user",
+							"host": [
+								"{{BASE_API}}"
+							],
+							"path": [
+								"users",
+								"create-user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_API}}/users",
+							"host": [
+								"{{BASE_API}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_API}}/users/6682899b5c4ebb0dadc7b3bf",
+							"host": [
+								"{{BASE_API}}"
+							],
+							"path": [
+								"users",
+								"6682899b5c4ebb0dadc7b3bf"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Profile",
+			"item": [
+				{
+					"name": "Get My Profile",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCESS_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API}}/profile",
+							"host": [
+								"{{BASE_API}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upate My Profile",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCESS_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "profilePhoto",
+									"type": "file",
+									"src": "/Users/fahimahammedfiroz/Downloads/Firoz Bhai.png"
+								},
+								{
+									"key": "data",
+									"value": "{\n    \"name\": \"Fahim Ahammed\",\n    \"mobileNumber\": \"01234567889\"\n}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_API}}/profile",
+							"host": [
+								"{{BASE_API}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_API",
+			"value": "http://localhost:5000/api/v1",
+			"type": "string"
+		},
+		{
+			"key": "ACCESS_TOKEN",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
